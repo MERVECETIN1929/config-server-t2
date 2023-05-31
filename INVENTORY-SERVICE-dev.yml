@@ -4,7 +4,7 @@ spring:
   datasource:
     username: root
     password: '12345'
-    url: jdbc:mysql://localhost:3306/inventorydb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/inventorydb-t2?createDatabaseIfNotExist=true
   jpa:
     properties:
       hibernate:
