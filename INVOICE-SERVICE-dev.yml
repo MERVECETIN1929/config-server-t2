@@ -1,6 +1,11 @@
 spring:
   application:
     name: INVOICE-SERVICE
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/RentACarMikroservice/protocol/openid-connect/certs
   data:
     mongodb:
       uri: mongodb://localhost:27018/invoicedb-t2
