@@ -37,22 +37,17 @@ eureka:
     prefer-ip-address: true
 server:
   port: 0
-resilience4j:
-  circuitbreaker:
-    instances:
-      inventory-service:
-        registerHealthIndicator: true
-        eventConsumerBufferSize: 10
-        failureRateThreshold: 50 #Başarısızlık oranı eşiğe eşit veya eşikten yüksek olduğunda, CircuitBreaker açık konuma geçer ve kısa devre çağrılarını başlatır.
-        minimumNumberOfCalls: 5 #CircuitBreaker'ın hata oranını veya yavaş çağrı oranını hesaplayabilmesi için gerekli olan (kayan pencere periyodu başına) minimum çağrı sayısını yapılandırır.
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        #true olarak ayarlanırsa, CircuitBreaker'ın otomatik olarak açık durumdan yarı açık duruma geçeceği ve geçişi tetiklemek için herhangi bir arama gerekmediği anlamına gelir. WaitDurationInOpenState geçtikten sonra bunları HALF_OPEN'e geçirmek üzere CircuitBreakers'ın tüm örneklerini izlemek için bir iş parçacığı oluşturulur. Oysa false olarak ayarlanırsa, HALF_OPEN'e geçiş yalnızca bir çağrı yapıldığında, waitDurationInOpenState geçildikten sonra bile gerçekleşir.
-        #Buradaki avantaj, hiçbir iş parçacığının tüm Devre Kesicilerin durumunu izlememesidir.
-        waitDurationInOpenState: 5s #Devre Kesicinin açıktan yarı açık duruma geçmeden önce beklemesi gereken süre.
-        permittedNumberOfCallsInHalfOpenState: 3 #CircuitBreaker yarı açıkken izin verilen aramaların sayısını yapılandırır.
-        slidingWindowSize: 10 #CircuitBreaker kapatıldığında aramaların sonucunu kaydetmek için kullanılan sürgülü pencerenin boyutunu yapılandırır.
-        slidingWindowType: COUNT_BASED #Kayan pencere COUNT_BASED ise, son çağrılar kaydedilir ve toplanır. Kayan pencere TIME_BASED ise, son saniyelerdeki aramalar kaydedilir ve toplanır.slidingWindowSize
-  #slidingWindowSize
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/zipkin/v2/spans
 
   retry:
     configs:
